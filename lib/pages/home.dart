@@ -1,14 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
+import '../graphql/movies.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  GraphQLClient _client;
   TabController _tabController;
 
-  bool _isLoaded = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -19,6 +25,8 @@ class _HomePageState extends State<HomePage>with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    _client = GraphQLProvider.of(context).value;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Cinemax"),
@@ -35,10 +43,22 @@ class _HomePageState extends State<HomePage>with TickerProviderStateMixin {
         actions: <Widget> [
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: () {
-              setState(() {
-                _isLoaded = !_isLoaded;
-              });
+            onPressed: () async {
+              _isLoading = true;
+
+              var queryOptions = QueryOptions(document: MOVIES_QUERY);
+
+              /**
+               * No idea of how to put the result
+               * data into a ListView. :(
+               */
+              var res = await _client.query(queryOptions);
+
+              var data = res.data;
+
+              json.decode(data);
+
+              _isLoading = false;
             },
           )
         ],
@@ -51,7 +71,7 @@ class _HomePageState extends State<HomePage>with TickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: <Widget> [
-          Center(child: _isLoaded ? CircularProgressIndicator() : Text("Em exibição")),
+          Center(child: _isLoading ? CircularProgressIndicator() : Text("Em exibição")),
           Center(child: Text("Extreias")),
           Center(child: Text("Kandengue")),
           Center(child: Text("Esquebra"))
