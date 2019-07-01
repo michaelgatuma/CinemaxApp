@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import './routes.dart';
 
-import './services/graphql.dart';
+import './graphql/client.dart';
 
 void main() => runApp(CinemaxApp());
 
