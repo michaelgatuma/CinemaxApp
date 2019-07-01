@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage>with TickerProviderStateMixin {
         title: Text("Cinemax"),
         bottom: TabBar(
           controller: _tabController,
-          tabs: < Widget > [
+          tabs: <Widget> [
             Tab(text: "Em exibição"),
             Tab(text: "Extreias"),
             Tab(text: "Kandengue"),
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage>with TickerProviderStateMixin {
           ],
           isScrollable: true,
         ),
-        actions: < Widget > [
+        actions: <Widget> [
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
@@ -50,15 +50,11 @@ class _HomePageState extends State<HomePage>with TickerProviderStateMixin {
       ),
       body: TabBarView(
         controller: _tabController,
-        children: < Widget > [
-          Center(
-            child: _isLoaded ? CircularProgressIndicator() : Tab(text: "Em exibição"), ),
-          Center(
-            child: Text("Extreias"), ),
-          Center(
-            child: Text("Kandengue"), ),
-          Center(
-            child: Text("Esquebra"), )
+        children: <Widget> [
+          Center(child: _isLoaded ? CircularProgressIndicator() : Text("Em exibição")),
+          Center(child: Text("Extreias")),
+          Center(child: Text("Kandengue")),
+          Center(child: Text("Esquebra"))
         ],
       ),
     );
