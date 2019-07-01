@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import './services/graphql.dart';
+import './routes.dart';
 
-import './pages/home.dart';
+import './services/graphql.dart';
 
 void main() => runApp(CinemaxApp());
 
@@ -23,7 +23,8 @@ class CinemaxApp extends StatelessWidget {
           primaryColor: Color(0xffff9800),
           brightness: Brightness.dark
         ),
-        home: HomePage(),
+        initialRoute: '/',
+        routes: routes,
         debugShowCheckedModeBanner: false,
       )
     );
