@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import './services/graphql.dart';
 
 void main() => runApp(CinemaxApp());
 
@@ -24,57 +26,60 @@ class _CinemaxAppState extends State < CinemaxApp > with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Cinemax",
-      theme: ThemeData(
-        accentColor: Colors.orange[900],
-        primaryColor: Color(0xffff9800),
-        brightness: Brightness.dark
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Cinemax"),
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: <Widget> [
-              Tab(text: "Em exibição"),
-              Tab(text: "Extreias"),
-              Tab(text: "Kandengue"),
-              Tab(text: "Esquebra"),
+    return GraphQLProvider(
+      client: client,
+      child: MaterialApp(
+        title: "Cinemax",
+        theme: ThemeData(
+          accentColor: Colors.orange[900],
+          primaryColor: Color(0xffff9800),
+          brightness: Brightness.dark
+        ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("Cinemax"),
+            bottom: TabBar(
+              controller: _tabController,
+              tabs: < Widget > [
+                Tab(text: "Em exibição"),
+                Tab(text: "Extreias"),
+                Tab(text: "Kandengue"),
+                Tab(text: "Esquebra"),
+              ],
+              isScrollable: true,
+            ),
+            actions: < Widget > [
+              IconButton(
+                icon: Icon(Icons.refresh),
+                onPressed: () {
+                  setState(() {
+                    _isLoaded = !_isLoaded;
+                  });
+                },
+              )
             ],
-            isScrollable: true,
           ),
-          actions: <Widget> [
-            IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () {
-                setState(() {
-                  _isLoaded = !_isLoaded;
-                });
-              },
-            )
-          ],
-        ),
-        drawer: Drawer(
-          child: DrawerHeader(
-            child: Text("Cinemax, é um espetáculo"),
+          drawer: Drawer(
+            child: DrawerHeader(
+              child: Text("Cinemax, é um espetáculo"),
+            ),
+          ),
+          body: TabBarView(
+            controller: _tabController,
+            children: < Widget > [
+              Center(
+                child: _isLoaded ? CircularProgressIndicator() : Tab(text: "Em exibição"), ),
+              Center(
+                child: Text("Extreias"), ),
+              Center(
+                child: Text("Kandengue"), ),
+              Center(
+                child: Text("Esquebra"), )
+            ],
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: < Widget > [
-            Center(
-              child: _isLoaded ? CircularProgressIndicator() : Tab(text: "Em exibição"),),
-            Center(
-              child: Text("Extreias"), ),
-            Center(
-              child: Text("Kandengue"), ),
-            Center(
-              child: Text("Esquebra"), )
-          ],
-        ),
-      ),
-      debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
+      )
     );
   }
 }
