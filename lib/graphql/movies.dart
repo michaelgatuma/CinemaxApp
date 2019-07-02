@@ -11,7 +11,7 @@ const MOVIES_QUERY = """
       genres {
         name
       }
-      cover: picture {
+      picture {
         thumb(size: COVER) {
           url
         }
