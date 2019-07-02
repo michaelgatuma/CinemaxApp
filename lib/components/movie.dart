@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MovieWidget extends StatelessWidget {
   const MovieWidget({Key key}) : super(key: key);
@@ -11,7 +12,10 @@ class MovieWidget extends StatelessWidget {
         Container(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(3.0),
-            child: Image.network('https://statics.cinemax.co.ao/2019/06/07/5cfa6f8526dec-255x380.jpeg'),
+            child: CachedNetworkImage(
+              imageUrl: 'https://statics.cinemax.co.ao/2019/06/07/5cfa6f8526dec-255x380.jpeg',
+              placeholder: (context, url) => CircularProgressIndicator()
+            ),
           ),
           decoration: BoxDecoration(
             boxShadow: [
