@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import 'package:cinemax_app/models/movie.dart';
 import 'package:cinemax_app/components/movie.dart';
 import 'package:cinemax_app/graphql/movies.dart';
 
@@ -30,10 +31,15 @@ class _MoviesWidgetState extends State<MoviesWidget> {
           itemCount: _movies.length,
           physics: AlwaysScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            // final movieCoverUrl = _movies[index]['picture']['thumb']['url'];
-            // final movieTitle    = _movies[index]['name'];
+            final _movie = _movies[index];
 
-            return MovieWidget();
+            final _movieModel = Movie(
+              id: _movie['id'],
+              name:_movies[index]['name'],
+              coverUrl: _movies[index]['picture']['thumb']['url']
+            );
+
+            return MovieWidget(movie: _movieModel);
           },
           staggeredTileBuilder: (int index) {
             return StaggeredTile.fit(1);
