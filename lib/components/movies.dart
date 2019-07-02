@@ -1,3 +1,4 @@
+import 'package:cinemax_app/factories/movie_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -33,11 +34,7 @@ class _MoviesWidgetState extends State<MoviesWidget> {
           itemBuilder: (BuildContext context, int index) {
             final _movie = _movies[index];
 
-            final _movieModel = Movie(
-              id: _movie['id'],
-              name:_movies[index]['name'],
-              coverUrl: _movies[index]['picture']['thumb']['url']
-            );
+            final _movieModel = MovieFactory.make(_movie);
 
             return MovieWidget(movie: _movieModel);
           },
