@@ -1,7 +1,7 @@
 const MOVIES_QUERY = """
-  query FEATURING_TODAY_MOVIES_QUERY {
+  query FEATURING_TODAY_MOVIES_QUERY(\$sessionCategory: String) {
     moviesFeaturingToday: moviesFeaturingToday(
-      sessionCategory:"em-exibicao"
+      sessionCategory: \$sessionCategory
     ) {
       id
       name
