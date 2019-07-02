@@ -1,8 +1,5 @@
+import 'package:cinemax_app/components/movies.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
-import '../graphql/movies.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -57,73 +54,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Center(child: Text("Esquebra"))
         ],
       ),
-    );
-  }
-}
-
-class MoviesWidget extends StatefulWidget {
-  @override
-  _MoviesWidgetState createState() => _MoviesWidgetState();
-}
-
-class _MoviesWidgetState extends State<MoviesWidget> {
-  List _movies;
-
-  @override
-  Widget build(BuildContext context) {
-    return Query(
-      builder: (QueryResult result, { VoidCallback refetch }) {
-        if (result.errors != null) {
-          return Center(child: Text(result.errors.toString()));
-        }
-
-        if (result.loading) {
-          return Center(child: CircularProgressIndicator());
-        }
-
-        _movies = result.data['moviesFeaturingToday'];
-
-        return StaggeredGridView.countBuilder(
-          crossAxisCount: 2,
-          itemCount: _movies.length,
-          physics: AlwaysScrollableScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-            final movieCoverUrl = _movies[index]['picture']['thumb']['url'];
-            final movieTitle    = _movies[index]['name'];
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(3.0),
-                    child: Image.network(movieCoverUrl),
-                  ),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 15.0,
-                      )
-                    ]
-                  ),
-                ),
-                Padding(padding: EdgeInsets.only(bottom: 10.0),),
-                Text(
-                  movieTitle,
-                  overflow: TextOverflow.ellipsis
-                )
-            ]);
-          },
-          staggeredTileBuilder: (int index) {
-            return StaggeredTile.fit(1);
-          },
-          mainAxisSpacing: 15.0,
-          crossAxisSpacing: 15.0,
-          padding: EdgeInsets.all(15.0),
-        );
-      },
-      options: QueryOptions(document: MOVIES_QUERY)
     );
   }
 }
