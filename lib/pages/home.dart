@@ -48,10 +48,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: <Widget> [
-          MoviesWidget(),
+          MoviesWidget(sessionCategory: 'em-exibicao'),
           Center(child: Text("Extreias")),
-          Center(child: Text("Kandengue")),
-          Center(child: Text("Esquebra"))
+          MoviesWidget(sessionCategory: 'kandengue'),
+          MoviesWidget(sessionCategory: 'esquebra')
         ],
       ),
     );
