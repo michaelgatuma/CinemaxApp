@@ -26,25 +26,25 @@ class MovieWidget extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Colors.black,
-                blurRadius: 15.0,
+                blurRadius: 5.0,
+                offset: Offset.fromDirection(-5.0, 5.0)
               )
             ]
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: 12.0)
+          padding: EdgeInsets.only(bottom: 15.0)
         ),
         Text(
           movie.name,
           overflow: TextOverflow.ellipsis,
-          maxLines: 1,
           style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: 12.0)
+          padding: EdgeInsets.only(bottom: 8.0)
         ),
         Text(
           'Acção, Ficção científica',
@@ -53,7 +53,10 @@ class MovieWidget extends StatelessWidget {
             fontSize: 10.0,
             color: Colors.white.withOpacity(0.6)
           ),
-        )
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 15.0)
+        ),
     ]);
   }
 }
