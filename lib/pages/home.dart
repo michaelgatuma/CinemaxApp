@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../graphql/movies.dart';
 
@@ -11,10 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  GraphQLClient _client;
   TabController _tabController;
-
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -25,8 +21,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _client = GraphQLProvider.of(context).value;
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Cinemax"),
@@ -44,21 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () async {
-              _isLoading = true;
-
-              var queryOptions = QueryOptions(document: MOVIES_QUERY);
-
-              /**
-               * No idea of how to put the result
-               * data into a ListView. :(
-               */
-              var res = await _client.query(queryOptions);
-
-              var data = res.data;
-
-              json.decode(data);
-
-              _isLoading = false;
+              //
             },
           )
         ],
@@ -71,12 +51,70 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: <Widget> [
-          Center(child: _isLoading ? CircularProgressIndicator() : Text("Em exibição")),
+          MoviesWidget(),
           Center(child: Text("Extreias")),
           Center(child: Text("Kandengue")),
           Center(child: Text("Esquebra"))
         ],
       ),
+    );
+  }
+}
+
+class MoviesWidget extends StatefulWidget {
+  @override
+  _MoviesWidgetState createState() => _MoviesWidgetState();
+}
+
+class _MoviesWidgetState extends State<MoviesWidget> {
+  List _movies;
+
+  @override
+  Widget build(BuildContext context) {
+    return Query(
+      builder: (QueryResult result, { VoidCallback refetch }) {
+        if (result.errors != null) {
+          return Center(child: Text(result.errors.toString()));
+        }
+
+        if (result.loading) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        _movies = result.data['moviesFeaturingToday'];
+
+        return Padding(
+          padding: EdgeInsets.all(15.0),
+          child: StaggeredGridView.countBuilder(
+            crossAxisCount: 2,
+            itemCount: _movies.length,
+            itemBuilder: (BuildContext context, int index) {
+              final movieCoverUrl = _movies[index]['picture']['thumb']['url'];
+              final movieTitle    = _movies[index]['name'];
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(3.0),
+                    child: Image.network(movieCoverUrl),
+                  ),
+                  Padding(padding: EdgeInsets.only(bottom: 10.0),),
+                  Text(
+                    movieTitle,
+                    overflow: TextOverflow.ellipsis
+                  )
+              ]);
+            },
+            staggeredTileBuilder: (int index) {
+              return StaggeredTile.fit(1);
+            },
+            mainAxisSpacing: 15.0,
+            crossAxisSpacing: 15.0,
+          )
+        );
+      },
+      options: QueryOptions(document: MOVIES_QUERY)
     );
   }
 }
