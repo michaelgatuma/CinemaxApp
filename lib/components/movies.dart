@@ -1,13 +1,16 @@
-import 'package:cinemax_app/factories/movie_factory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'package:cinemax_app/models/movie.dart';
+import 'package:cinemax_app/factories/movie_factory.dart';
 import 'package:cinemax_app/components/movie.dart';
 import 'package:cinemax_app/graphql/movies.dart';
 
 class MoviesWidget extends StatefulWidget {
+  final sessionCategory;
+
+  MoviesWidget({ this.sessionCategory });
+
   @override
   _MoviesWidgetState createState() => _MoviesWidgetState();
 }
@@ -15,6 +18,8 @@ class MoviesWidget extends StatefulWidget {
 class _MoviesWidgetState extends State<MoviesWidget> {
   @override
   Widget build(BuildContext context) {
+    final sessionCategory = widget.sessionCategory;
+
     return Query(
       builder: (QueryResult result, { VoidCallback refetch }) {
         if (result.errors != null) {
@@ -26,6 +31,10 @@ class _MoviesWidgetState extends State<MoviesWidget> {
         }
 
         List _movies = result.data['moviesFeaturingToday'];
+
+        if (_movies.length == 0) {
+          return Center(child: Text('Não há filmes em exibição nesta sessão'));
+        }
 
         return StaggeredGridView.countBuilder(
           crossAxisCount: 2,
@@ -46,7 +55,12 @@ class _MoviesWidgetState extends State<MoviesWidget> {
           padding: EdgeInsets.all(15.0),
         );
       },
-      options: QueryOptions(document: MOVIES_QUERY)
+      options: QueryOptions(
+        document: MOVIES_QUERY,
+        variables: {
+          'sessionCategory': sessionCategory
+        }
+      )
     );
   }
 }
