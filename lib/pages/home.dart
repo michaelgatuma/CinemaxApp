@@ -83,35 +83,44 @@ class _MoviesWidgetState extends State<MoviesWidget> {
 
         _movies = result.data['moviesFeaturingToday'];
 
-        return Padding(
-          padding: EdgeInsets.all(15.0),
-          child: StaggeredGridView.countBuilder(
-            crossAxisCount: 2,
-            itemCount: _movies.length,
-            itemBuilder: (BuildContext context, int index) {
-              final movieCoverUrl = _movies[index]['picture']['thumb']['url'];
-              final movieTitle    = _movies[index]['name'];
+        return StaggeredGridView.countBuilder(
+          crossAxisCount: 2,
+          itemCount: _movies.length,
+          physics: AlwaysScrollableScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            final movieCoverUrl = _movies[index]['picture']['thumb']['url'];
+            final movieTitle    = _movies[index]['name'];
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  ClipRRect(
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(3.0),
                     child: Image.network(movieCoverUrl),
                   ),
-                  Padding(padding: EdgeInsets.only(bottom: 10.0),),
-                  Text(
-                    movieTitle,
-                    overflow: TextOverflow.ellipsis
-                  )
-              ]);
-            },
-            staggeredTileBuilder: (int index) {
-              return StaggeredTile.fit(1);
-            },
-            mainAxisSpacing: 15.0,
-            crossAxisSpacing: 15.0,
-          )
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 15.0,
+                      )
+                    ]
+                  ),
+                ),
+                Padding(padding: EdgeInsets.only(bottom: 10.0),),
+                Text(
+                  movieTitle,
+                  overflow: TextOverflow.ellipsis
+                )
+            ]);
+          },
+          staggeredTileBuilder: (int index) {
+            return StaggeredTile.fit(1);
+          },
+          mainAxisSpacing: 15.0,
+          crossAxisSpacing: 15.0,
+          padding: EdgeInsets.all(15.0),
         );
       },
       options: QueryOptions(document: MOVIES_QUERY)
