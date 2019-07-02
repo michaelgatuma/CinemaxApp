@@ -1,8 +1,11 @@
+import 'package:cinemax_app/models/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class MovieWidget extends StatelessWidget {
-  const MovieWidget({Key key}) : super(key: key);
+  final Movie movie;
+
+  const MovieWidget({Key key, this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +16,10 @@ class MovieWidget extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(3.0),
             child: CachedNetworkImage(
-              imageUrl: 'https://statics.cinemax.co.ao/2019/06/07/5cfa6f8526dec-255x380.jpeg',
-              placeholder: (context, url) => CircularProgressIndicator()
+              imageUrl: movie.coverUrl,
+              /* placeholder: (context, url) => Center(
+                child: CircularProgressIndicator()
+              ) */
             ),
           ),
           decoration: BoxDecoration(
@@ -27,11 +32,27 @@ class MovieWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: 10.0)
+          padding: EdgeInsets.only(bottom: 12.0)
         ),
         Text(
-          'John Wick 3: Implacável',
-          overflow: TextOverflow.ellipsis
+          movie.name,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 12.0)
+        ),
+        Text(
+          'Acção, Ficção científica',
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 10.0,
+            color: Colors.white.withOpacity(0.6)
+          ),
         )
     ]);
   }
