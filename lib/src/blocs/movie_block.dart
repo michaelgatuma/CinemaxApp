@@ -9,8 +9,10 @@ class MoviesBloc
 
   Observable<List<MovieModel>> get moviesfeaturingToday => _moviesFetcher.stream;
 
-  fetchMoviesfeaturingToday() async {
-    List<MovieModel> _moviesList = await _repository.fetchMoviesFeaturingToday('em-exibicao');
+  fetchMoviesfeaturingToday({ String movieSessionCategory }) async {
+    List<MovieModel> _moviesList = await _repository.fetchMoviesFeaturingToday(
+      movieSessionCategory: movieSessionCategory
+    );
 
     _moviesFetcher.sink.add(_moviesList);
   }

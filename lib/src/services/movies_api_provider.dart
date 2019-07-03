@@ -17,7 +17,7 @@ class MoviesApiProvider {
     );
   }
 
-  Future<List<MovieModel>> fetchMoviesFeaturingToday(String movieSessionCategory) async {
+  Future<List<MovieModel>> fetchMoviesFeaturingToday({ String movieSessionCategory }) async {
     final res = await _client.query(
       QueryOptions(
         document: MOVIES_QUERY,
@@ -31,7 +31,7 @@ class MoviesApiProvider {
 
     final jsonMovies = res.data['moviesFeaturingToday'];
 
-    for (const _movie in jsonMovies) {
+    for (final _movie in jsonMovies) {
       final _movieModel = MovieFactory.makeFromJson(_movie);
 
       _movieList.add((_movieModel));

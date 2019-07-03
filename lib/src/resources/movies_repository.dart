@@ -8,7 +8,9 @@ class MoviesRepository {
     _moviesApiProvider = MoviesApiProvider();
   }
 
-  Future<List<MovieModel>> fetchMoviesFeaturingToday(movieSessionCategory) {
-    return _moviesApiProvider.fetchMoviesFeaturingToday(movieSessionCategory);
+  Future<List<MovieModel>> fetchMoviesFeaturingToday({ String movieSessionCategory }) {
+    return _moviesApiProvider.fetchMoviesFeaturingToday(
+      movieSessionCategory: movieSessionCategory
+    );
   }
 }
