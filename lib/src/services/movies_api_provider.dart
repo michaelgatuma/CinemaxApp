@@ -17,12 +17,12 @@ class MoviesApiProvider {
     );
   }
 
-  Future<MovieModel> fetchMovie(int id) async {
+  Future<MovieModel> fetchMovie(int movieId) async {
     final _result = await _client.query(
       QueryOptions(
         document: MOVIE_QUERY,
         variables: {
-          'id': 43
+          'id': movieId
         }
       )
     );
