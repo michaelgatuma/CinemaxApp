@@ -30,12 +30,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text("Cinemax"),
         bottom: TabBar(
+          indicatorColor: Color(0xffff9800),
+          labelColor: Color(0xffff9800),
           controller: _tabController,
           tabs: <Widget> [
-            Tab(text: "Em exibição"),
-            Tab(text: "Extreias"),
-            Tab(text: "Kandengue"),
-            Tab(text: "Esquebra"),
+            Tab(text: 'Em exibição'),
+            Tab(text: 'Extreias'),
+            Tab(text: 'Kandengue'),
+            Tab(text: 'Esquebra'),
           ],
           isScrollable: true,
         ),
