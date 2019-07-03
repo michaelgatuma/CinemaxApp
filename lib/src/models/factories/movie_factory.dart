@@ -7,7 +7,7 @@ class MovieFactory
     return MovieModel(
       id      : _movie['id'],
       name    : _movie['name'],
-      debut   : _movie['debut'] ?? '',
+      debut   : _movie['debut'],
       coverUrl: _movie['picture']['thumb']['url'],
       genres  : _movie['genres']
     );
