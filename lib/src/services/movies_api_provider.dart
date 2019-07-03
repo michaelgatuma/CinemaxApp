@@ -17,6 +17,19 @@ class MoviesApiProvider {
     );
   }
 
+  Future<MovieModel> fetchMovie(int id) async {
+    final _result = await _client.query(
+      QueryOptions(
+        document: MOVIE_QUERY,
+        variables: {
+          'id': 43
+        }
+      )
+    );
+
+    return MovieFactory.makeFromJson(_result.data['movie']);
+  }
+
   Future<List<MovieModel>> fetchMoviesFeaturingToday({ String movieSessionCategory }) async {
     final res = await _client.query(
       QueryOptions(
