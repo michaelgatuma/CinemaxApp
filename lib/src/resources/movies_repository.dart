@@ -13,4 +13,8 @@ class MoviesRepository {
       movieSessionCategory: movieSessionCategory
     );
   }
+
+  Future<List<MovieModel>> fetchUpcomingMovies() {
+    return _moviesApiProvider.fetchUpcomingMovies();
+  }
 }

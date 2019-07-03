@@ -29,7 +29,7 @@ class MoviesApiProvider {
 
     final jsonMovies = res.data['moviesFeaturingToday'];
 
-    return toMovieModelList(jsonMovies);
+    return _toMovieModelList(jsonMovies);
   }
 
   Future<List<MovieModel>> fetchUpcomingMovies() async {
@@ -37,19 +37,23 @@ class MoviesApiProvider {
       QueryOptions(document: UPCOMING_MOVIES_QUERY)
     );
 
+    if (res.errors != null) {
+      print(res.errors[0].toString());
+    }
+
     final jsonMovies = res.data['upcomingMovies'];
 
-    return toMovieModelList(jsonMovies);
+    return _toMovieModelList(jsonMovies);
   }
 
-  List<MovieModel> toMovieModelList(jsonMovies)
+  List<MovieModel> _toMovieModelList(jsonMovies)
   {
     List<MovieModel> _movieList = List<MovieModel>();
 
     for (final _movie in jsonMovies) {
       final _movieModel = MovieFactory.makeFromJson(_movie);
 
-      _movieList.add((_movieModel));
+      _movieList.add(_movieModel);
     }
 
     return _movieList;
