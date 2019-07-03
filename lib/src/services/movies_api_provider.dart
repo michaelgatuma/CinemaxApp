@@ -1,4 +1,4 @@
-import 'package:cinemax_app/graphql/movies.dart';
+import 'package:cinemax_app/src/graphql/movies.dart';
 import 'package:cinemax_app/src/models/factories/movie_factory.dart';
 import 'package:cinemax_app/src/models/movie.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
