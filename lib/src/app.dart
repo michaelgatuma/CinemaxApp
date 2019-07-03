@@ -11,8 +11,8 @@ class CinemaxApp extends StatelessWidget {
     return MaterialApp(
       title: _appTitle,
       theme: ThemeData(
-        accentColor: Colors.orange[900],
-        primaryColor: Color(0xffff9800),
+        accentColor: Color(0xffff9800),
+        primaryColor: Colors.black,
         brightness: Brightness.dark
       ),
       initialRoute: '/',
