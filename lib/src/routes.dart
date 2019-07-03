@@ -1,5 +1,7 @@
-import './pages/home.dart';
+import 'pages/home.dart';
+import 'pages/movie.dart';
 
 final routes = {
-  '/': (context) => HomePage()
+  '/': (context) => HomePage(),
+  '/movie': (context) => MoviePage()
 };
