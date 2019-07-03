@@ -32,4 +32,4 @@ class MoviesBloc
   }
 }
 
-final moviesBlock = MoviesBloc();
+final moviesBloc = MoviesBloc();
