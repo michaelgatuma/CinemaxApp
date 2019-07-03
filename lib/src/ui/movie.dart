@@ -47,7 +47,7 @@ class Movie extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 8.0)
         ),
         Text(
-          'Acção, Ficção científica',
+          movie.genresList,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 10.0,
