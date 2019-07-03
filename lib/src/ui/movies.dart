@@ -1,4 +1,4 @@
-import 'package:cinemax_app/src/blocs/movie_block.dart';
+import 'package:cinemax_app/src/blocs/movies_bloc.dart';
 import 'package:cinemax_app/src/models/movie.dart';
 import 'package:cinemax_app/src/ui/movie.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +11,10 @@ class MovieList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    moviesBlock.fetchMoviesfeaturingToday(movieSessionCategory: movieSessionCategory);
+    moviesBloc.fetchMoviesfeaturingToday(movieSessionCategory: movieSessionCategory);
 
     return StreamBuilder(
-      stream: moviesBlock.moviesfeaturingToday,
+      stream: moviesBloc.moviesfeaturingToday,
       builder: (BuildContext context, AsyncSnapshot<List<MovieModel>> _moviesList) {
         if (_moviesList.hasData) {
           if (_moviesList.data.length == 0) {
@@ -48,10 +48,10 @@ class MovieList extends StatelessWidget {
 class UpcomingMovieList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    moviesBlock.fetchUpcomingMovies();
+    moviesBloc.fetchUpcomingMovies();
 
     return StreamBuilder(
-      stream: moviesBlock.upcomingMovies,
+      stream: moviesBloc.upcomingMovies,
       builder: (BuildContext context, AsyncSnapshot<List<MovieModel>> _moviesList) {
         if (_moviesList.hasData) {
           if (_moviesList.data.length == 0) {
