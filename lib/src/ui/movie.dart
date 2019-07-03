@@ -13,14 +13,24 @@ class Movie extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(3.0),
-            child: CachedNetworkImage(
-              imageUrl: movie.coverUrl,
-              /* placeholder: (context, url) => Center(
-                child: CircularProgressIndicator()
-              ) */
-            ),
+          child: Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(3.0),
+                child: CachedNetworkImage(
+                  imageUrl: movie.coverUrl,
+                  /* placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator()
+                  ) */
+                )
+              ),
+              Positioned(
+                top: 10,
+                left: -10,
+                child: Text(movie.debut)
+              )
+            ],
           ),
           decoration: BoxDecoration(
             boxShadow: [
