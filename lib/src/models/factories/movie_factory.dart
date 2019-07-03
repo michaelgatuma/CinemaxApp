@@ -1,10 +1,10 @@
-import 'package:cinemax_app/models/movie.dart';
+import 'package:cinemax_app/src/models/movie.dart';
 
 class MovieFactory
 {
-  static make(_movie)
+  static makeFromJson(_movie)
   {
-    return Movie(
+    return MovieModel(
       id: _movie['id'],
       name: _movie['name'],
       coverUrl: _movie['picture']['thumb']['url']
