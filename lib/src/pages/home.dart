@@ -10,10 +10,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _tabController;
 
   var tabBarViewChildrens = <Widget> [
-    MovieList(sessionCategory: 'em-exibicao'),
-    Center(child: Text("Extreias")),
-    MovieList(sessionCategory: 'kandengue'),
-    MovieList(sessionCategory: 'esquebra')
+    MovieList(movieSessionCategory: 'em-exibicao'),
+    MovieList(),
+    MovieList(movieSessionCategory: 'kandengue'),
+    MovieList(movieSessionCategory: 'esquebra')
   ];
 
   @override
