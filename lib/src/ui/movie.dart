@@ -1,11 +1,11 @@
-import 'package:cinemax_app/models/movie.dart';
+import 'package:cinemax_app/src/models/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class MovieWidget extends StatelessWidget {
-  final Movie movie;
+class Movie extends StatelessWidget {
+  final MovieModel movie;
 
-  const MovieWidget({Key key, this.movie}) : super(key: key);
+  const Movie({Key key, this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

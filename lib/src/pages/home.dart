@@ -1,4 +1,4 @@
-import 'package:cinemax_app/components/movies.dart';
+import 'package:cinemax_app/src/ui/movies.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,10 +10,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _tabController;
 
   var tabBarViewChildrens = <Widget> [
-    MoviesWidget(sessionCategory: 'em-exibicao'),
+    MovieList(sessionCategory: 'em-exibicao'),
     Center(child: Text("Extreias")),
-    MoviesWidget(sessionCategory: 'kandengue'),
-    MoviesWidget(sessionCategory: 'esquebra')
+    MovieList(sessionCategory: 'kandengue'),
+    MovieList(sessionCategory: 'esquebra')
   ];
 
   @override
