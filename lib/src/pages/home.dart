@@ -11,7 +11,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   var tabBarViewChildrens = <Widget> [
     MovieList(movieSessionCategory: 'em-exibicao'),
-    MovieList(),
+    UpcomingMovieList(),
     MovieList(movieSessionCategory: 'kandengue'),
     MovieList(movieSessionCategory: 'esquebra')
   ];

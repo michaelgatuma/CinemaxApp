@@ -44,3 +44,40 @@ class MovieList extends StatelessWidget {
     );
   }
 }
+
+class UpcomingMovieList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    moviesBlock.fetchUpcomingMovies();
+
+    return StreamBuilder(
+      stream: moviesBlock.upcomingMovies,
+      builder: (BuildContext context, AsyncSnapshot<List<MovieModel>> _moviesList) {
+        if (_moviesList.hasData) {
+          if (_moviesList.data.length == 0) {
+            return Center(child: Text('Não há filmes em exibição nesta sessão'));
+          }
+
+          return StaggeredGridView.countBuilder(
+            crossAxisCount: 2,
+            itemCount: _moviesList.data.length,
+            physics: AlwaysScrollableScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              final _movie = _moviesList.data[index];
+
+              return Movie(movie: _movie);
+            },
+            staggeredTileBuilder: (int index) {
+              return StaggeredTile.fit(1);
+            },
+            mainAxisSpacing: 15.0,
+            crossAxisSpacing: 15.0,
+            padding: EdgeInsets.all(15.0),
+          );
+        }
+
+        return Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+}
