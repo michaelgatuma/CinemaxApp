@@ -25,10 +25,35 @@ class Movie extends StatelessWidget {
                   ) */
                 )
               ),
-              Positioned(
-                top: 10,
-                left: -10,
-                child: Text(movie.debut)
+              Visibility(
+                child: Positioned(
+                  top: 5,
+                  left: -5,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(3.0),
+                    child: Container(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text(
+                        movie.longDebut,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color(0xffff9800),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 30.0,
+                            offset: Offset.fromDirection(-5.0, 5.0)
+                          )
+                        ]
+                      ),
+                    )
+                )
+                ),
+                visible: movie.debut != null
               )
             ],
           ),
