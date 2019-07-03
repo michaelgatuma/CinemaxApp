@@ -20,16 +20,31 @@ class MoviesApiProvider {
   Future<List<MovieModel>> fetchMoviesFeaturingToday({ String movieSessionCategory }) async {
     final res = await _client.query(
       QueryOptions(
-        document: MOVIES_QUERY,
+        document: MOVIES_FEATURING_TODAY_QUERY,
         variables: {
           'sessionCategory': movieSessionCategory
         }
       )
     );
 
-    List<MovieModel> _movieList = List<MovieModel>();
-
     final jsonMovies = res.data['moviesFeaturingToday'];
+
+    return toMovieModelList(jsonMovies);
+  }
+
+  Future<List<MovieModel>> fetchUpcomingMovies() async {
+    final res = await _client.query(
+      QueryOptions(document: UPCOMING_MOVIES_QUERY)
+    );
+
+    final jsonMovies = res.data['upcomingMovies'];
+
+    return toMovieModelList(jsonMovies);
+  }
+
+  List<MovieModel> toMovieModelList(jsonMovies)
+  {
+    List<MovieModel> _movieList = List<MovieModel>();
 
     for (final _movie in jsonMovies) {
       final _movieModel = MovieFactory.makeFromJson(_movie);
