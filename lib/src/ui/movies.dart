@@ -1,21 +1,18 @@
+import 'package:cinemax_app/graphql/movies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'package:cinemax_app/factories/movie_factory.dart';
-import 'package:cinemax_app/components/movie.dart';
-import 'package:cinemax_app/graphql/movies.dart';
-
-class MoviesWidget extends StatefulWidget {
+class MovieList extends StatefulWidget {
   final sessionCategory;
 
-  MoviesWidget({ this.sessionCategory });
+  MovieList({ this.sessionCategory });
 
   @override
-  _MoviesWidgetState createState() => _MoviesWidgetState();
+  _MovieListState createState() => _MovieListState();
 }
 
-class _MoviesWidgetState extends State<MoviesWidget> {
+class _MovieListState extends State<MovieList> {
   @override
   Widget build(BuildContext context) {
     final sessionCategory = widget.sessionCategory;
@@ -41,11 +38,11 @@ class _MoviesWidgetState extends State<MoviesWidget> {
           itemCount: _movies.length,
           physics: AlwaysScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            final _movie = _movies[index];
+            /* final _movie = _movies[index];
 
-            final _movieModel = MovieFactory.make(_movie);
+            final _movieModel = MovieFactory.makeFromJson(_movie);
 
-            return MovieWidget(movie: _movieModel);
+            return Movie(movie: _movieModel); */
           },
           staggeredTileBuilder: (int index) {
             return StaggeredTile.fit(1);
