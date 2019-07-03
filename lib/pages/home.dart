@@ -9,6 +9,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   TabController _tabController;
 
+  var tabBarViewChildrens = <Widget> [
+    MoviesWidget(sessionCategory: 'em-exibicao'),
+    Center(child: Text("Extreias")),
+    MoviesWidget(sessionCategory: 'kandengue'),
+    MoviesWidget(sessionCategory: 'esquebra')
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -18,6 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Cinemax"),
@@ -47,12 +55,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget> [
-          MoviesWidget(sessionCategory: 'em-exibicao'),
-          Center(child: Text("Extreias")),
-          MoviesWidget(sessionCategory: 'kandengue'),
-          MoviesWidget(sessionCategory: 'esquebra')
-        ],
+        children: tabBarViewChildrens,
       ),
     );
   }
